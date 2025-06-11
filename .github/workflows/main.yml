@@ -2,16 +2,17 @@ name: Deploy to Azure Static Web App
 
 on:
   push:
-    branches: [main]  # Runs on pushes to the 'main' branch
+    branches: [main]  # Runs on pushes to 'main' branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Checks out your repo code
+      - uses: actions/checkout@v4  # Checks out your repo
       - name: Deploy to Azure
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          app_location: "/"     # Looks for files in the ROOT of the repo
-          output_location: ""  # Leave empty since files are in root (no build step)
+          app_location: "/"       # Your files are in the root
+          output_location: ""     # No build step needed (plain HTML)
+          action: "upload"        # Explicitly tell Azure to upload files
